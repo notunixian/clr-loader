@@ -10,5 +10,5 @@ if you are having a hard time following these instructions, you can [watch a vid
 * grab the latest source from [BlazeEngine-IL2CPP](https://github.com/BlazeBest/BlazeEngine-IL2CPP)
 * build the source
 * place the Modules folder and the VRCLoader.dll file inside of your VRChat folder
-* build and inject using your favorite injector for EAC (example: [face injector](https://github.com/Vazzupov/face-injector-fixed))
+* build and inject using your favorite injector for EAC (example: [my fork of face injector](https://github.com/notunixian/face-injector-v2))
 * profit?
