@@ -11,6 +11,47 @@
 #pragma comment(lib, "libMinHook-x64-v141-mdd.lib")
 
 void empty_func() {}
+void create_hook(LPVOID pTarget, LPVOID pDetour, LPVOID* ppOriginal)
+{
+    LPVOID orig;
+    auto result = MH_CreateHook(pTarget, pDetour, &orig);
+    if (result != MH_OK)
+    {
+        std::cout << "[clr loader] create hook failed, status: " << MH_StatusToString(result) << std::endl;
+        return;
+    }
+    *ppOriginal = orig;
+}
+
+void remove_hook(LPVOID pTarget)
+{
+    auto result = MH_RemoveHook(pTarget);
+    if (result != MH_OK)
+    {
+        std::cout << "[clr loader] remove hook failed, status: " << MH_StatusToString(result) << std::endl;
+        return;
+    }
+}
+
+void enable_hook(LPVOID pTarget)
+{
+    auto result = MH_EnableHook(pTarget);
+    if (result != MH_OK)
+    {
+        std::cout << "[clr loader] enable hook failed, status: " << MH_StatusToString(result) << std::endl;
+        return;
+    }
+}
+
+void disable_hook(LPVOID pTarget)
+{
+    auto result = MH_DisableHook(pTarget);
+    if (result != MH_OK)
+    {
+        std::cout << "[clr loader] disable hook failed, status: " << MH_StatusToString(result) << std::endl;
+        return;
+    }
+}
 
 
 int main()
@@ -43,10 +84,10 @@ int main()
     net_domain->Initialize();
     net_domain->MinHook_CreateInstance(
         empty_func,
-        MH_CreateHook,
-        MH_RemoveHook,
-        MH_EnableHook,
-        MH_DisableHook);
+        create_hook,
+        remove_hook,
+        enable_hook,
+        disable_hook);
     net_domain->OnApplicationStart();
 
     runtime_info->Release();
